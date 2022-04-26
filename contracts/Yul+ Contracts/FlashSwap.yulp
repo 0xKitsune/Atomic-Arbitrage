@@ -1,0 +1,63 @@
+object "FlashSwap" {
+  code {
+    datacopy(0, dataoffset("Runtime"), datasize("Runtime"))
+    return(0, datasize("Runtime"))
+  }
+  object "Runtime" {
+    code {
+
+
+        /* --------------- Constants --------------- */
+
+        ///@dev Address of WETH
+        const WETH := 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+
+        
+        /* --------------- Handle Calldata--------------- */
+
+        // write calldata to memory
+        calldatacopy(0, 0, 36) 
+
+        //mstruct for when singleFlashSwap is called
+        mstruct SingleFlashSwapCalldata(
+          sig: 4,
+          borrowAsset: 32,
+          borrowAmount: 32,
+          repayAsset: 32,
+          executionData: 0, //TODO: execution data size tbd
+
+        )
+
+        //mstruct for when uniswapV2Call is called
+        mstruct UniswapV2CallCalldata(
+          sig: 4,
+          sender: 32,
+          amount0: 32,
+          amount1: 32,
+          sender: 32,
+          executionData: 0, //TODO: execution data size tbd
+        )
+
+
+        /* --------------- Function Selector --------------- */
+
+        switch FunctionSigCalldata.sig(0) 
+
+        case sig"function singleFlashSwap(address borrowAsset, uint256 borrowAmount, address repayAsset, bytes calldata executionData)" {
+
+        }
+
+        case sig"function uniswapV2Call(address borrowAsset, uint256 borrowAmount, address repayAsset, bytes calldata executionData)" {
+        
+        }
+
+        function _singleFlashSwap(address borrowAsset, uint256 borrowAmount, address repayAsset, bytes calldata executionData){
+        
+        }
+
+        function _uniswapV2Call(address _sender, uint256 _amount0, uint256 _amount1, bytes calldata _data){
+        
+        }
+    }
+  }
+}
